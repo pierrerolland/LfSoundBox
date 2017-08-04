@@ -4,6 +4,7 @@ import React, {
 import {
   AppRegistry,
   Image,
+  ListView,
   StyleSheet,
   Text,
   View,
@@ -15,29 +16,40 @@ export default class App extends React.Component {
 constructor(props) {
     super(props);
     this.state = {
-      sounds: null,
+      dataSource: new ListView.DataSource({
+        rowHasChanged: (row1, row2) => row1 !== row2,
+      }),
+      loaded: false,
     };
   }
    componentDidMount() {
     this.fetchData();
   }
+  
   fetchData() {
     fetch(REQUEST_URL)
       .then((response) => response.json())
       .then((responseData) => {
         this.setState({
-          sounds: responseData.sounds,
+          dataSource: this.state.dataSource.cloneWithRows(responseData.sounds),
+          loaded: true,
         });
       })
       .done();
   }
+
   render() {
-    if (!this.state.sounds) {
+    if (!this.state.loaded) {
       return this.renderLoadingView();
     }
 
-    var sound = this.state.sounds[0];
-    return this.renderSound(sound);
+  return (
+      <ListView
+        dataSource={this.state.dataSource}
+        renderRow={this.renderSound}
+        style={styles.listView}
+      />
+    );
   }
 
   renderLoadingView() {
@@ -66,6 +78,10 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCF0',
+  },
+  listView: {
+    paddingTop: 20,
+    backgroundColor: '#F5FCFF',
   },
   rightContainer: {
     flex: 1,
