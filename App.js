@@ -53,8 +53,7 @@ constructor(props) {
   renderSound(sound) {
     return (
         <View style={styles.container}>
-          <Text style={styles.title}>{sound.label}</Text>
-          <Text style={styles.year}>{sound.url}</Text>
+          <Text style={styles.label}>{sound.label}</Text>
         </View>
     );
   }
@@ -66,21 +65,14 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#F5FCF0',
   },
   rightContainer: {
     flex: 1,
   },
-  thumbnail: {
-    width: 53,
-    height: 81,
-  },
-  title: {
-    fontSize: 20,
-    marginBottom: 8,
-    textAlign: 'center',
-  },
-  year: {
+  label: {
+    fontSize: 25,
+    marginBottom: 12,
     textAlign: 'center',
   },
 });
