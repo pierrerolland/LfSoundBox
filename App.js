@@ -3,11 +3,12 @@ import React, {
 } from 'react';
 import {
   AppRegistry,
-  Image,
   ListView,
   StyleSheet,
   Text,
   View,
+  Button,
+  Alert
 } from 'react-native';
 
 var REQUEST_URL = 'https://raw.githubusercontent.com/jerey2001/LfSoundBox/master/sounds.json';
@@ -21,6 +22,7 @@ constructor(props) {
       }),
       loaded: false,
     };
+    //this.playSound = this.playSound.bind(this);
   }
    componentDidMount() {
     this.fetchData();
@@ -61,14 +63,20 @@ constructor(props) {
       </View>
     );
   }
-
+  
+  playSound(){
+  	console.log('Pouet');
+  }
+  
   renderSound(sound) {
     return (
         <View style={styles.container}>
-          <Text style={styles.label}>{sound.label}</Text>
+          <Button style={styles.buttons} title={sound.label} onPress={() => console.log(sound.url)}/>
         </View>
     );
   }
+  
+   
 }
 
 var styles = StyleSheet.create({
@@ -81,14 +89,15 @@ var styles = StyleSheet.create({
   },
   listView: {
     paddingTop: 20,
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#FFFFFF',
   },
   rightContainer: {
     flex: 1,
   },
-  label: {
-    fontSize: 25,
+  buttons: {
+    fontSize: 40,
     marginBottom: 12,
     textAlign: 'center',
   },
+
 });
