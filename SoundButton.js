@@ -7,9 +7,15 @@ import {
     Button
 } from 'react-native';
 
+import SoundPlayer from 'react-native-sound-player';
+
 export default class SoundButton extends React.Component {
-    playSound = () => {
-        console.log(`Playing ${this.props.sound.url}`);
+    playSound = (error, sound) => {
+        try {
+            SoundPlayer.playSoundFile(this.props.sound.url, 'mp3');
+        } catch (e) {
+            console.log(`cannot play the sound file`, e);
+        }
     };
 
     render() {
